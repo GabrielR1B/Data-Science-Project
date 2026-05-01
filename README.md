@@ -12,11 +12,9 @@
 * **Tratamento de Outliers:** Exclusão de países com baixa densidade de dados para evitar distorções na série temporal.
 * **Série Temporal Contínua:** Identificação da maior sequência contínua de anos sem valores nulos, priorizando a manutenção de países importantes.
 
-## Ainda falta :(
+## Etapas de análise
+* ** Muitas**
 
-Padronizar os datasets para conter:
-1.  **Exatamente os mesmos países em todos os datasets.**
-2.  **A mesma janela temporal**.
-3.  **Dados 100% íntegros** (sem valores nulos) o dataset departures tinha mais de 100 países com quase nenhum ou nenhum dado.
+obs: valores nulos
 
 ---
