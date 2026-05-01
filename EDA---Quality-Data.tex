@@ -1,0 +1,386 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\documentclass[
+]{article}
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Análise Exploratória de Dados - Dados Turísticos},
+  pdfauthor={Gabriel Rodrigues},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Análise Exploratória de Dados - Dados Turísticos}
+\author{Gabriel Rodrigues}
+\date{2026-05-01}
+
+\begin{document}
+\maketitle
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{setwd}\NormalTok{(}\StringTok{\textquotesingle{}/home/gabrielr/Documentos/UFMG/2026.1/ICD/Prática/Projeto/Data{-}Science{-}Project/\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Dados Macroeconômicos Turísticos
+Mundiais}\label{dados-macroeconuxf4micos-turuxedsticos-mundiais}
+
+Primeiramente, vamos importar os dados, tratá-los e visualizar alguns
+pontos chave.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Carregando as bibliotecas principais}
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## -- Attaching core tidyverse packages ------------------------ tidyverse 2.0.0 --
+## v dplyr     1.2.1     v readr     2.2.0
+## v forcats   1.0.1     v stringr   1.6.0
+## v ggplot2   4.0.3     v tibble    3.3.1
+## v lubridate 1.9.5     v tidyr     1.3.2
+## v purrr     1.2.2     
+## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()
+## i Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Lendo os dados brutos}
+
+\NormalTok{df\_turismo }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"Tourism Quality/Tourism Quality Data.csv"}\NormalTok{)}
+
+\CommentTok{\# Ajuste inicial de tipos de dados}
+\NormalTok{df\_turismo }\OtherTok{\textless{}{-}}\NormalTok{ df\_turismo }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{Ano =} \FunctionTok{as.factor}\NormalTok{(Ano), }\CommentTok{\# Transformando o Ano em fator (categoria)}
+    \AttributeTok{IncomeGroup =} \FunctionTok{factor}\NormalTok{(IncomeGroup, }
+                         \AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Low income"}\NormalTok{, }\StringTok{"Lower middle income"}\NormalTok{, }
+                                    \StringTok{"Upper middle income"}\NormalTok{, }\StringTok{"High income"}\NormalTok{)) }\CommentTok{\# Ordenando a renda}
+\NormalTok{  )}
+
+\CommentTok{\# Visualização inicial da base final}
+\FunctionTok{glimpse}\NormalTok{(df\_turismo)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Rows: 333
+## Columns: 24
+## $ Sigla                                                      <chr> "AGO", "AGO~
+## $ País                                                       <chr> "Angola", "~
+## $ Ano                                                        <fct> 2019, 2021,~
+## $ Region                                                     <chr> "Sub-Sahara~
+## $ IncomeGroup                                                <fct> Lower middl~
+## $ Continente                                                 <chr> "AF", "AF",~
+## $ Cultural.Demand                                            <dbl> 1.138445, 1~
+## $ Cultural.Resources                                         <dbl> 1.209611, 1~
+## $ Geographic.Dispersion                                      <dbl> 2.607143, 2~
+## $ Natural.Resources                                          <dbl> 3.003402, 3~
+## $ Natural.Demand                                             <dbl> 1.057587, 1~
+## $ Non.Leisure.Resources                                      <dbl> 1.270534, 1~
+## $ Non.Leisure.Demand                                         <dbl> 1.052973, 1~
+## $ Openness.to.Tourism                                        <dbl> 2.199659, 2~
+## $ Prioritization.of.Tourism                                  <dbl> 3.618593, 3~
+## $ Air.Transport.Infrastructure                               <dbl> 2.226030, 2~
+## $ Ground.and.Port.Infrastructure                             <dbl> 1.816664, 1~
+## $ T.T.Employment.Multiplier                                  <dbl> 4.756657, 5~
+## $ T.T.GDP.Multiplier                                         <dbl> 4.680924, 5~
+## $ T.T.Government.Expenditure.....of.Government.Budget        <dbl> 1.672798, 1~
+## $ T.T.High.Wage.Jobs......of.Employment.in.High.Wage.Sectors <dbl> 6.075938, 5~
+## $ Domestic.T.T.spending.....of.Internal.T.T.Spending         <dbl> 64.45112, 8~
+## $ T.T.industry.Share.of.GDP.....of.total.GDP                 <dbl> 1.3524970, ~
+## $ T.T.industry.GDP                                           <dbl> 1328.0020, ~
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{unique}\NormalTok{(df\_turismo}\SpecialCharTok{$}\NormalTok{Ano)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 2019 2021 2024
+## Levels: 2019 2021 2024
+\end{verbatim}
+
+\subsection{Notas metodológicas acerca da da natureza dos
+dados}\label{notas-metodoluxf3gicas-acerca-da-da-natureza-dos-dados}
+
+Antes de adentrarmos nas análises exploratórias, é fundamental tecer
+comentários sobre a natureza estrutural deste dataset (Tourism Quality
+Data) e, consequentemente, sobre os limites das inferências estatísticas
+que podem ser extraídas dele.
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Unidade de análise Macro (País-Ano)}
+\end{itemize}
+
+Os dados trabalhados consistem em um painel macroeconômico. Nossa
+observação mínima não é o indivíduo, o viajante, ou empresas (dados
+analíticos), mas a entidade ``País'' ou ``Território'' em recortes
+temporais específicos (2019, 2021 e 2024) sob determinados critérios.
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Microdados vs Macrodados}
+\end{itemize}
+
+Não é possível utilizar esta base para análises probabilísticas de
+comportamento individual (ex.: ``qual a probabilidade de um turista
+gastar mais em um destino com mais recursos naturais?''). O dado
+individual foi sumarizado em indicadores consolidados pelo macro do
+país, como multiplicadores de emprego, demanda natural, dispersão
+geográfica etc.
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Índices e Scores Padronizados}
+\end{itemize}
+
+A maioria das variáveis qualitativas presentes no dataset (Tourism
+Quality Data) já são estatísticas consolidadas sob a forma de scores
+numéricos.
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Abordagem estatística adotada}
+\end{itemize}
+
+Cientes de tais premissas, as análises descritivas e inferenciais
+focarão em padrões sistêmicos. Utilizaremos matrizes de correlaão,
+análise de variância entre estados globais e modelos de regressão para
+entender como a infraestrutura e a priorização governamental se
+relacionam no macro com a geração de riqueza do setor de turismo.
+
+\subsubsection{O que os dados nos permitem responder de nossas perguntas
+iniciais?}\label{o-que-os-dados-nos-permitem-responder-de-nossas-perguntas-iniciais}
+
+A estrutura atual do dataset é rica em variáveis de corte transversal
+(cross-section) e agregações categóricas. Portanto, a base é
+perfeitamente adequada para responder a perguntas focadas em perfis,
+correlações, agrupamentos e comparações estruturais.
+
+Os dados suportam com alto rigor estatístico as seguintes investigações
+propostas:
+
+\begin{itemize}
+\item
+  \textbf{Comparações e Perfis Estruturais:} Questões sobre Diferenças
+  regionais (África Subsaariana vs.~Zona do Euro vs.~Mercosul
+  vs.~BRICS\ldots; França vs Inglaterra vs Rússia vs.~Brasil), Impacto
+  do IncomeGroup, e Turismo de lazer vs.~negócios. Podemos utilizar
+  Análise de Variância (ANOVA) e boxplots para provar se a renda ou a
+  região definem categorias com comportamentos estatisticamente
+  distintos.
+\item
+  \textbf{Eficiência e Relações de Recursos:} Questões sobre Recursos
+  vs.~Demanda, Eficiência Econômica e Recursos Naturais vs.~Culturais.
+  Ao criarmos razões (ex: PIB / Recursos Naturais), podemos facilmente
+  mapear quais países ``fazem mais com menos'' e identificar padrões de
+  especialização (matrizes de correlação).
+\item
+  \textbf{Modelagem e Agrupamentos:}
+\end{itemize}
+
+Além das análises descritivas e comparativas, também podemos utilizar
+técnicas simples de modelagem e agrupamento para explorar melhor os
+padrões presentes nos dados.
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Relações entre variáveis:} Podemos investigar como diferentes
+  indicadores se relacionam entre si. Por exemplo, é possível verificar
+  se países com melhor infraestrutura turística tendem a apresentar
+  maior receita ou demanda. Para isso, utilizamos ferramentas como a
+  matriz de correlação e gráficos de dispersão.
+\item
+  \textbf{Modelos de regressão (introdução):} Uma abordagem inicial é
+  utilizar regressões lineares simples para avaliar se uma variável pode
+  ajudar a explicar outra. Por exemplo, podemos testar se indicadores
+  como investimento em turismo ou qualidade de serviços estão associados
+  ao desempenho econômico do setor. É importante destacar que esses
+  modelos indicam associação, não causalidade.
+\item
+  \textbf{Agrupamento de países (clusters):} Também podemos aplicar
+  técnicas de agrupamento, como o K-means, para identificar grupos de
+  países com características semelhantes. Esses grupos podem revelar
+  padrões interessantes, como países com alto investimento e baixa
+  eficiência, ou países que obtêm bons resultados com menos recursos.
+\item
+  Identificação de padrões e outliers: Essas abordagens permitem
+  identificar tanto padrões gerais quanto casos atípicos (outliers), que
+  podem representar países com desempenho muito acima ou abaixo do
+  esperado em relação aos demais.
+\end{itemize}
+
+De forma geral, essas técnicas ajudam a organizar melhor a informação
+contida nos dados e a gerar hipóteses sobre o funcionamento do setor
+turístico em nível global.
+
+\subsubsection{E o que eles não nos permitem
+responder?}\label{e-o-que-eles-nuxe3o-nos-permitem-responder}
+
+Algumas das perguntas propostas exigem estruturas de dados que não
+possuímos (como séries temporais longas ou testes de causalidade
+controlados). Tentar respondê-las diretamente com esta base resultará em
+conclusões estatisticamente frágeis. As principais restrições recaem
+sobre:
+
+\begin{itemize}
+\item
+  \textbf{Tendências Históricas e Mudanças Estruturais de Longo Prazo:}
+  Perguntas sobre Evolução de demandas ao longo do tempo e Países
+  mudando de perfil.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    O porquê: possuímos apenas três recortes temporais (2019, 2021 e
+    2024). Em estatística, três pontos não configuram uma ``tendência
+    histórica''. O que os dados de fato mostram é o choque agudo da
+    pandemia de COVID-19 (a queda em 2021 e a recuperação em 2024). Não
+    é possível afirmar que um país sofreu uma ``mudança estrutural de
+    modelo de turismo''; ele apenas pode ter tido uma recuperação mais
+    lenta ou rápida da crise sanitária.
+  \end{itemize}
+\item
+  \textbf{Causalidade e Trade-offs Exclusivos:} Perguntas como
+  Infraestrutura como fator limitante para crescimento e Trade-offs
+  (investir em X reduz Y).
+
+  \begin{itemize}
+  \tightlist
+  \item
+    O porquê: correlação não implica causalidade. A base nos permite
+    afirmar que ``países com maior infraestrutura tendem a ter maior
+    receita'', mas não prova que o investimento financeiro direto na
+    infraestrutura causou a receita. Da mesma forma, encontrar uma
+    correlação negativa entre duas variáveis não prova a existência de
+    um trade-off consciente de políticas públicas (onde o governo
+    escolheu tirar dinheiro de X para colocar em Y).
+  \end{itemize}
+\item
+  \textbf{Convergência de Longo Prazo:} Pergunta sobre Países mais
+  abertos convergem para níveis mais altos.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    O porquê: novamente, a janela de 5 anos (atravessada por uma
+    pandemia que fechou fronteiras artificialmente) impede uma análise
+    de convergência real. Podemos, no máximo, avaliar a elasticidade da
+    recuperação de países abertos versus fechados no pós-crise.
+  \end{itemize}
+\end{itemize}
+
+\subsection{Análises e plotagens}\label{anuxe1lises-e-plotagens}
+
+\subsubsection{Matriz de correlação}\label{matriz-de-correlauxe7uxe3o}
+
+\end{document}

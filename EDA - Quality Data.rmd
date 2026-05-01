@@ -1,0 +1,103 @@
+---
+title: "Análise Exploratória de Dados - Dados Turísticos"
+author: "Gabriel Rodrigues"
+date: "2026-05-01"
+output:
+  html_document: default
+  pdf_document: default
+---
+```{r}
+setwd('/home/gabrielr/Documentos/UFMG/2026.1/ICD/Prática/Projeto/Data-Science-Project/')
+```
+
+# Dados Macroeconômicos Turísticos Mundiais
+Primeiramente, vamos importar os dados, tratá-los e visualizar alguns pontos chave.
+
+```{r carregamento dados}
+# Carregando as bibliotecas principais
+library(tidyverse)
+
+# Lendo os dados brutos
+
+df_turismo <- read.csv("Tourism Quality/Tourism Quality Data.csv")
+
+# Ajuste inicial de tipos de dados
+df_turismo <- df_turismo %>%
+  mutate(
+    Ano = as.factor(Ano), # Transformando o Ano em fator (categoria)
+    IncomeGroup = factor(IncomeGroup, 
+                         levels = c("Low income", "Lower middle income", 
+                                    "Upper middle income", "High income")) # Ordenando a renda
+  )
+
+# Visualização inicial da base final
+glimpse(df_turismo)
+```
+
+```{r período dados}
+unique(df_turismo$Ano)
+```
+## Notas metodológicas acerca da da natureza dos dados
+
+Antes de adentrarmos nas análises exploratórias, é fundamental tecer comentários sobre a natureza estrutural deste dataset (Tourism Quality Data) e, consequentemente, sobre os limites das inferências estatísticas que podem ser extraídas dele.
+
+ - **Unidade de análise Macro (País-Ano)**
+ 
+ Os dados trabalhados consistem em um painel macroeconômico. Nossa observação mínima não é o indivíduo, o viajante, ou empresas (dados analíticos), mas a entidade "País" ou "Território" em recortes temporais específicos (2019, 2021 e 2024) sob determinados critérios.
+
+ - **Microdados vs Macrodados**
+ 
+ Não é possível utilizar esta base para análises probabilísticas de comportamento individual (ex.: "qual a probabilidade de um turista gastar mais em um destino com mais recursos naturais?"). O dado individual foi sumarizado em indicadores consolidados pelo macro do país, como multiplicadores de emprego, demanda natural, dispersão geográfica etc.
+ 
+ - **Índices e Scores Padronizados** 
+ 
+ A maioria das variáveis qualitativas presentes no dataset (Tourism Quality Data) já são estatísticas consolidadas sob a forma de scores numéricos.
+ 
+ - **Abordagem estatística adotada**
+ 
+ Cientes de tais premissas, as análises descritivas e inferenciais focarão em padrões sistêmicos. Utilizaremos matrizes de correlaão, análise de variância entre estados globais e modelos de regressão para entender como a infraestrutura e a priorização governamental se relacionam no macro com a geração de riqueza do setor de turismo.
+ 
+### O que os dados nos permitem responder de nossas perguntas iniciais?
+
+A estrutura atual do dataset é rica em variáveis de corte transversal (cross-section) e agregações categóricas. Portanto, a base é perfeitamente adequada para responder a perguntas focadas em perfis, correlações, agrupamentos e comparações estruturais.
+
+Os dados suportam com melhor rigor estatístico as seguintes investigações propostas:
+
+- **Comparações e Perfis Estruturais:** Questões sobre Diferenças regionais (África Subsaariana vs. Zona do Euro vs. Mercosul vs. BRICS...; França vs Inglaterra vs Rússia vs. Brasil), Impacto do IncomeGroup, e Turismo de lazer vs. negócios. Podemos utilizar Análise de Variância (ANOVA) e boxplots para provar se a renda ou a região definem categorias com comportamentos estatisticamente distintos.
+
+ - **Eficiência e Relações de Recursos:** Questões sobre Recursos vs. Demanda, Eficiência Econômica e Recursos Naturais vs. Culturais. Ao criarmos razões (ex: PIB / Recursos Naturais), podemos facilmente mapear quais países "fazem mais com menos" e identificar padrões de especialização (matrizes de correlação).
+
+ - **Modelagem e Agrupamentos:** 
+
+Além das análises descritivas e comparativas, também podemos utilizar técnicas simples de modelagem e agrupamento para explorar melhor os padrões presentes nos dados.
+
+   - **Relações entre variáveis:** Podemos investigar como diferentes indicadores se relacionam entre si. Por exemplo, é possível verificar se países com melhor infraestrutura turística tendem a apresentar maior receita ou demanda. Para isso, utilizamos ferramentas como a matriz de correlação e gráficos de dispersão.
+   - **Modelos de regressão (introdução):** Uma abordagem inicial é utilizar regressões lineares simples para avaliar se uma variável pode ajudar a explicar outra. Por exemplo, podemos testar se indicadores como investimento em turismo ou qualidade de serviços estão associados ao desempenho econômico do setor. É importante destacar que esses modelos indicam associação, não causalidade.
+   - **Agrupamento de países (clusters):** Também podemos aplicar técnicas de agrupamento, como o K-means, para identificar grupos de países com características semelhantes. Esses grupos podem revelar padrões interessantes, como países com alto investimento e baixa eficiência, ou países que obtêm bons resultados com menos recursos.
+   - Identificação de padrões e outliers: Essas abordagens permitem identificar tanto padrões gerais quanto casos atípicos (outliers), que podem representar países com desempenho muito acima ou abaixo do esperado em relação aos demais.
+
+De forma geral, essas técnicas ajudam a organizar melhor a informação contida nos dados e a gerar hipóteses sobre o funcionamento do setor turístico em nível global.
+
+### E o que eles não nos permitem responder?
+
+Algumas das perguntas propostas exigem estruturas de dados que não possuímos (como séries temporais longas ou testes de causalidade controlados). Tentar respondê-las diretamente com esta base resultará em conclusões estatisticamente frágeis. As principais restrições recaem sobre:
+
+ - **Tendências Históricas e Mudanças Estruturais de Longo Prazo:** Perguntas sobre Evolução de demandas ao longo do tempo e Países mudando de perfil.
+
+    - O porquê: possuímos apenas três recortes temporais (2019, 2021 e 2024). Em estatística, três pontos não configuram uma "tendência histórica". O que os dados de fato mostram é o choque agudo da pandemia de COVID-19 (a queda em 2021 e a recuperação em 2024). Não é possível afirmar que um país sofreu uma "mudança estrutural de modelo de turismo"; ele apenas pode ter tido uma recuperação mais lenta ou rápida da crise sanitária.
+
+ - **Causalidade e Trade-offs Exclusivos:** Perguntas como Infraestrutura como fator limitante para crescimento e Trade-offs (investir em X reduz Y).
+
+    - O porquê: correlação não implica causalidade. A base nos permite afirmar que "países com maior infraestrutura tendem a ter maior receita", mas não prova que o investimento financeiro direto na infraestrutura causou a receita. Da mesma forma, encontrar uma correlação negativa entre duas variáveis não prova a existência de um trade-off consciente de políticas públicas (onde o governo escolheu tirar dinheiro de X para colocar em Y).
+
+ - **Convergência de Longo Prazo:** Pergunta sobre Países mais abertos convergem para níveis mais altos.
+
+    - O porquê: novamente, a janela de 5 anos (atravessada por uma pandemia que fechou fronteiras artificialmente) impede uma análise de convergência real. Podemos, no máximo, avaliar a elasticidade da recuperação de países abertos versus fechados no pós-crise.
+    
+## Análises e plotagens
+### Matriz de correlação
+
+
+
+
+
