@@ -1,5 +1,5 @@
 ---
-title: "Análise Exploratória de Dados - Dados Turísticos"
+title: "Análise Exploratória de Dados - Dados Turísticos Macroeconômicos"
 author: "Gabriel Rodrigues"
 date: "2026-05-01"
 output:
@@ -11,7 +11,7 @@ setwd('/home/gabrielr/Documentos/UFMG/2026.1/ICD/Prática/Projeto/Data-Science-P
 ```
 
 # Dados Macroeconômicos Turísticos Mundiais
-Primeiramente, vamos importar os dados, tratá-los e visualizar alguns pontos chave.
+Primeiramente, vamos importar os dados, tratá-los normalizar tipos e visualizar alguns pontos chave.
 
 ```{r carregamento dados}
 # Carregando as bibliotecas principais
@@ -19,7 +19,7 @@ library(tidyverse)
 
 # Lendo os dados brutos
 
-df_turismo <- read.csv("Tourism Quality/Tourism Quality Data.csv")
+df_turismo <- read.csv("Tourism Quality/Tourism Quality Data.csv", stringsAsFactors = T)
 
 # Ajuste inicial de tipos de dados
 df_turismo <- df_turismo %>%
@@ -39,7 +39,7 @@ unique(df_turismo$Ano)
 ```
 ## Notas metodológicas acerca da da natureza dos dados
 
-Antes de adentrarmos nas análises exploratórias, é fundamental tecer comentários sobre a natureza estrutural deste dataset (Tourism Quality Data) e, consequentemente, sobre os limites das inferências estatísticas que podem ser extraídas dele.
+Antes de adentrarmos nas análises exploratórias, é fundamental tecer comentários sobre a natureza estrutural deste dataset (Tourism Quality Data) e, consequentemente, sobre os limites das inferências que podem ser extraídas dele.
 
  - **Unidade de análise Macro (País-Ano)**
  
@@ -95,7 +95,76 @@ Algumas das perguntas propostas exigem estruturas de dados que não possuímos (
     - O porquê: novamente, a janela de 5 anos (atravessada por uma pandemia que fechou fronteiras artificialmente) impede uma análise de convergência real. Podemos, no máximo, avaliar a elasticidade da recuperação de países abertos versus fechados no pós-crise.
     
 ## Análises e plotagens
-### Matriz de correlação
+### Análise Descritiva e Tendências Centrais
+#### Indicadores por Região
+
+Primeiramente, vamos analisar de forma ampĺa a base de dados a partir de algumas médias e visualização da quantidade de outliers e visualizar o efeito pandemia e recuperação econômica posterior.
+
+```{r pib turismo comparativo}
+
+ggplot(df_turismo, aes(x = Region, y = T.T.industry.GDP, fill = Ano)) +
+  geom_boxplot(position = position_dodge(width = 0.8)) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(
+    title = "PIB do Turismo por Região e Ano",
+    x = "Região",
+    y = "PIB do Turismo"
+  )
+
+
+```
+
+Como se pode observar, a pandemia impactou negativamente todos os países analisados no ano de 2021. Além disso, é interessante visualizar que o movimento de recuperação não foi homogêneo: a américa do norte recuperou mais agressivamente e, em movimento similar, somente um país da América do Latina recuperou da mesma forma.
+
+```{r outlier da América Latina}
+
+latin_rec <- df_turismo %>%
+  filter(Region == "Latin America & Caribbean") %>%
+  group_by(País, Ano) %>%
+  summarise(
+    gdp = mean(T.T.industry.GDP, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  pivot_wider(names_from = Ano, values_from = gdp) %>%
+  mutate(recuperacao = `2024` - `2021`) %>%
+  arrange(desc(recuperacao))
+
+glimpse(latin_rec)
+
+
+```
+
+
+```{r distribuição da recuperação do PIB do Turismo}
+ggplot(latin_rec, aes(x = recuperacao)) +
+  geom_histogram(bins = 20, fill = "steelblue", alpha = 0.7) +
+  theme_minimal() +
+  labs(
+    title = "Distribuição da Recuperação do PIB do Turismo (2024 - 2021)",
+    x = "Recuperação do PIB do Turismo",
+    y = "Frequência"
+  )
+```
+
+
+Com esta distribuição, percebe-se que há muitos países concentrando pequenas recuperações e principalmente três outliers, que são os gigantes (Brasil e México).
+
+
+```{r algumas médias}
+
+medias_regiao <- df_turismo %>%
+  group_by(Region, Ano) %>%
+  summarise(
+    Cultural_Demand = mean(Cultural.Demand, na.rm = TRUE),
+    Natural_Demand = mean(Natural.Demand, na.rm = TRUE),
+    Non_Leisure_Demand = mean(Non.Leisure.Demand, na.rm = TRUE),
+    GDP_Tourism = mean(T.T.industry.GDP, na.rm = TRUE)
+  ) %>%
+  pivot_longer(-c(Region, Ano), names_to = "Indicador", values_to = "Media")
+
+```
+
 
 
 
