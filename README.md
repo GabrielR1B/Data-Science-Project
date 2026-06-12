@@ -95,9 +95,9 @@ Este projeto foi construído colaborativamente por:
 * **Gabriel Martins** - Pergunta 3
 * **Gabriel Coelho** - Pergunta 4
 
-A branch main reúne apenas a versão final do trabalho, com a pipeline principal, os dados tratados e os resultados consolidados. Já as demais branches possuem o histórico de desenvolvimento de cada integrante, incluindo análises exploratórias, testes, experimentos e diferentes abordagens adotadas ao longo do projeto.
+A branch main reúne apenas a versão final do trabalho, com a pipeline principal, os dados tratados e os resultados consolidados. Já as demais branches possuem o histórico de desenvolvimento de cada integrante, incluindo análises exploratórias, testes, experimentos e diferentes abordagens adotadas ao longo do projeto. Confira abaixo os links para cada branch:
 
-```
-
-
-```
+* [branch gabriel-coelho](https://github.com/GabrielR1B/Data-Science-Project/tree/gabriel-coelho)
+* [branch gabriel-martins](https://github.com/GabrielR1B/Data-Science-Project/tree/gabriel-martins)
+* [branch marcos](https://github.com/GabrielR1B/Data-Science-Project/tree/marcos)
+* [branch yuri](https://github.com/GabrielR1B/Data-Science-Project/tree/yuri)
