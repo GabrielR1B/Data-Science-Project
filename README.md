@@ -66,6 +66,8 @@ Ao longo do projeto foram aplicados vários metodos:
 
 O projeto responde 4 perguntas Sobre o turismo. Abaixo, o resumo das descobertas:
 
+*Obs: Para uma análise detalhada de cada pergunta clique [aqui](https://github.com/GabrielR1B/Data-Science-Project/tree/main/perguntas)*
+
 ### 1. O turismo cresceu ou encolheu na última década?
 
 >Ao analisar os dados da última década, observa-se que o turismo internacional apresentou um crescimento consistente e significativo. Esse avanço foi percebido tanto no número de chegadas de turistas quanto nas receitas e nos gastos relacionados ao setor. Embora tenha ocorrido uma queda temporária durante a crise de 2009, a recuperação foi rápida e a tendência geral permaneceu positiva. Além disso, os resultados se mostraram estáveis independentemente do uso da base original ou da base com dados imputados, indicando que as conclusões não foram influenciadas pelos métodos de tratamento dos dados. As simulações realizadas também demonstraram que esse crescimento não depende de poucos países específicos, mas representa um fenômeno global e robusto.
