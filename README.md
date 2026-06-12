@@ -1,6 +1,6 @@
 # Data-Science-Project
 
-## O Cenário do Turismo Global na Última Década
+## O Cenário do Turismo Global nos últimos anos
 
 
 ## Sobre o Projeto
@@ -16,6 +16,9 @@ O projeto foi organizado da seguinte maneira:
 
 ```text
 
+ ┣ dados/
+ ┃ ┗ Tourism Quantity Data.csv
+ ┃ ┗ Tourism Quantity Data Imputed.csv
  ┣ perguntas/
  ┃ ┗ Pergunta_1.ipynb
  ┃ ┗ Pergunta_2.ipynb
